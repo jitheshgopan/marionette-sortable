@@ -1,8 +1,8 @@
-// Marionette.SortableCollectionView
+// Marionette.SortableCollectionView & Marionette.SortableCompositeView
 //
 // Copyright (c) 2014 orangain
 // Distributed under MIT License
-// https://github.com/orangain/marionette-sortable
+// https://github.com/jitheshgopan/marionette-sortable
 
 (function(root, factory) {
 
@@ -79,6 +79,22 @@
       }, this.sortableOptions || {});
 
       Marionette.CollectionView.apply(this, arguments);
+    }
+
+  });
+	
+	Marionette.SortableCompositeView = Marionette.CompositeView.extend({
+
+    constructor: function(options) {
+      _.extend(this, _.pick(options, ['sortableOptions']));
+
+      // Add Sortable behavior using sortableOptions
+      this.behaviors = this.behaviors || {};
+      this.behaviors._Sortable = _.extend({
+        behaviorClass: Marionette.SortableBehavior
+      }, this.sortableOptions || {});
+
+      Marionette.CompositeView.apply(this, arguments);
     }
 
   });
